@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Meet the Board">
+
+    <menu>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_first_layout"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/President" />
+        <item
+            android:id="@+id/nav_second_layout"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/Vice_President" />
+        <item
+            android:id="@+id/nav_third_layout"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/Treasurer" />
+        <item
+            android:id="@+id/nav_fourth_layout"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/PublicRelations" />
+
+        <item
+            android:id="@+id/nav_fifth_layout"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/Historian" />
+
+    </group>
+        </menu>
+    </item>
+
+    <item android:title="My RAP">
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/nav_profile_layout"
+                    android:icon="@drawable/ic_menu_camera"
+                    android:title="My Profile" />
+
+
+            </group>
+        </menu>
+    </item>
+
+
+
+    <item android:title="Communicate And Interact">
+        <menu>
+            <item
+                android:id="@+id/nav_rhyme"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Write a rhyme" />
+            <item
+                android:id="@+id/nav_contact"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Contact" />
+        </menu>
+    </item>
+
+</menu>

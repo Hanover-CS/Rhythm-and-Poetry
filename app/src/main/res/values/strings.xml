@@ -1,0 +1,93 @@
+<resources>
+    <string name="app_name">R.A.P</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    //PoemFragment helper
+    <string name="chooser">Save Poem Using</string>
+
+    //Facebook
+    <string name="facebook_app_id">663548593832746</string>
+
+
+    // recursive strings
+    <string name="Responsible_for">Responsible for:</string>
+    <string name="Email">Email:</string>
+    <string name="RAP">Rhythm And Poetry</string>
+
+
+    //// President Strings
+    <string name="President">President</string>
+    <string name="President_colon">President of R.A.P</string>
+    <string name="President_description">\n &#8226;
+                	Delegating meetings \n &#8226;
+                	Organization of cooperation with other orgs. \n &#8226;
+                    Representing RAP at conferences \n &#8226;
+                    Making important decisions for RAP;
+    </string>
+    <string name="President_email">Willisr19@hanover.edu</string>
+
+
+    // Vice President Strings
+    <string name="Vice_President">Vice President</string>
+    <string name="Vice_President_colon"> Vice President of R.A.P</string>
+    <string name="Vice_President_description">\n &#8226;
+                	Help delegate meetings \n &#8226;
+                	Helps approve Org. applications \n &#8226;
+                    Representing RAP at conferences \n &#8226;
+                    Speaks alongside the president at meetings
+    </string>
+    <string name="Vice_President_email">hairstonm17@hanover.edu</string>
+
+
+    // Treasurer
+    <string name="Treasurer">Treasurer</string>
+    <string name="Treasurer_colon"> Treasurer of R.A.P</string>
+    <string name="Treasurer_description">\n &#8226;
+                	Managing and preparing a semester long budget \n &#8226;
+                	Completing Swept funds and budget apps \n &#8226;
+                    Negotiation of Prices for guest speakers \n &#8226;
+                    Assuring that all monies for guest speakers is prepared on arrival of guest;
+    </string>
+    <string name="Treasurer_email">springerl19@hanover.edu</string>
+
+    // Secretary
+
+    <string name="PublicRelations">Public Relations</string>
+    <string name="PublicRelations_colon"> Public Relations of R.A.P</string>
+    <string name="PublicRelations_description">\n &#8226;
+                	info \n &#8226;
+                	info \n &#8226;
+                    info \n &#8226;
+                    info
+    </string>
+    <string name="PublicRelations_email">rutledgep20@hanover.edu</string>
+
+    // Historian
+
+    <string name="Historian">Historian</string>
+    <string name="Historian_colon"> Historian of R.A.P</string>
+    <string name="Historian_description">\n &#8226;
+                	info \n &#8226;
+                	info \n &#8226;
+                    info \n &#8226;
+                    info
+    </string>
+    <string name="Historian_email">macumberj19@hanover.edu</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    // upload strings
+    <string name="download_image">Download remote image from url</string>
+    <string name="upload_image">Upload image to server</string>
+    <string name="download_now">Download now</string>
+    <string name="download_input_error">Url input field must be filled</string>
+    <string name="list_image">List downloaded images</string>
+    <string name="no_image">No image on storage folder</string>
+    <string name="url_error">Your input url is short</string>
+
+</resources>
