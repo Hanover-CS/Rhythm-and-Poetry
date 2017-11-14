@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "546760579126",
+    "firebase_url": "https://rhythm-and-poetry.firebaseio.com",
+    "project_id": "rhythm-and-poetry",
+    "storage_bucket": "rhythm-and-poetry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546760579126:android:146ae1a86daa1a09",
+        "android_client_info": {
+          "package_name": "com.rap.rhythmandpoetry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "546760579126-k80rk2jfsln9vg1p370vi03afq0p960e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rap.rhythmandpoetry",
+            "certificate_hash": "df7914df44342525ef1abbaa9e571b7e349527a0"
+          }
+        },
+        {
+          "client_id": "546760579126-k43bc2qs0sutu4m1ao6j3oinincrsgu0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwX7NrGXzqeG6FUQ6dRQ4ki5kf-HMQR6M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "546760579126-k43bc2qs0sutu4m1ao6j3oinincrsgu0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

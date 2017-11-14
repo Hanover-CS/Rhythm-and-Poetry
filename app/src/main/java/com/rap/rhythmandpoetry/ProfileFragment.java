@@ -26,6 +26,7 @@ public class ProfileFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.profile_layout, container, false);
+        
         /*Button Button = (Button) myView.findViewById(R.id.president_button);
         ImageView shaun = (ImageView) myView.findViewById(R.id.shaun_pic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.shaun);
