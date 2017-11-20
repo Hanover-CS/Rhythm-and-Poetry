@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +17,51 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.internal.ImageRequest;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
+
+
 public class ProfileFragment extends Fragment{
 
     View myView;
+    View myView1;
+    TextView userName;
+    LoginButton loginBtn;
     RoundImage roundedImage;
+    static final String LOG_TAG = "BAD IMAGE";
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.profile_layout, container, false);
+        if (AccessToken.getCurrentAccessToken() != null) {
+
+            GraphRequest request = GraphRequest.newMeRequest(
+                    AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject me, GraphResponse response) {
+
+                            if (AccessToken.getCurrentAccessToken() != null) {
+
+                                if (me != null) {
+
+                                    String profileImageUrl = ImageRequest.getProfilePictureUri(me.optString("id"), 500, 500).toString();
+                                    Log.i(LOG_TAG, profileImageUrl);
+
+                                }
+                            }
+                        }
+                    });
+            GraphRequest.executeBatchAsync(request);
+        }
+        return myView;
+    }
         
         /*Button Button = (Button) myView.findViewById(R.id.president_button);
         ImageView shaun = (ImageView) myView.findViewById(R.id.shaun_pic);
@@ -50,7 +86,5 @@ public class ProfileFragment extends Fragment{
             }
         });*/
 
-
-        return myView;
     }
-}
+

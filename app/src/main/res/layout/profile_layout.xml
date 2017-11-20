@@ -3,67 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="33sp"
-        android:text="Ryshaun"
-        android:textStyle="bold"
-        android:fontFamily="cursive"
-        android:layout_marginTop="11dp"
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="73dp"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/president_button"
-        android:layout_alignEnd="@+id/president_button"
-        android:layout_marginRight="14dp"
-        android:layout_marginEnd="14dp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:text="Biography:
-Poet from the southside of Chicago
-Hanover College 2018
-Founder of RAP
-Instagram : @90s_drug"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp" />
-
-    <Button
-        android:id="@+id/president_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/President_email"
-        android:layout_marginBottom="11dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/shaun_pic"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:srcCompat="@drawable/shaun"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/textView3"
-        android:layout_toStartOf="@+id/textView3" />
-
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:text="My Poems:
-Nights on the southside
-My parents house
-Dark days
-A rose that grew from the concrete"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4" />
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="TextView" />
 </RelativeLayout>
