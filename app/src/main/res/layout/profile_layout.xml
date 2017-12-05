@@ -4,22 +4,42 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <ImageView
+        android:id="@+id/profile"
         style="@style/Widget.AppCompat.ImageButton"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="73dp"
-        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@+id/bio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
-    <TextView
+    <EditText
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/profile"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="26dp"
+        android:text="Bio Goes Here" />
+
+    <EditText
+        android:id="@+id/bio"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_alignBottom="@+id/save"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
         android:text="TextView" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:text="Save" />
+
+
 </RelativeLayout>
