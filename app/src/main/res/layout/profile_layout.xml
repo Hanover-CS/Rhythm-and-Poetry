@@ -7,39 +7,37 @@
     <ImageView
         android:id="@+id/profile"
         style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_above="@+id/bio"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="13dp"
         app:srcCompat="@drawable/com_facebook_profile_picture_blank_square" />
 
-    <EditText
+    <TextView
         android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/profile"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:text="Bio Goes Here" />
+        android:layout_marginTop="24dp"
+        android:hint="User" />
 
-    <EditText
+    <TextView
         android:id="@+id/bio"
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:layout_alignBottom="@+id/save"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
+        android:layout_centerVertical="true"
         android:text="TextView" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:text="Save" />
+    <ListView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignLeft="@+id/bio"
+        android:layout_alignStart="@+id/bio"
+        android:layout_below="@+id/bio"
+        android:layout_marginTop="24dp" />
 
 
 </RelativeLayout>

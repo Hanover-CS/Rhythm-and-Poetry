@@ -49,7 +49,7 @@ public class ProfileFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        save = (Button) myView.findViewById(R.id.save);
+        //save = (Button) myView.findViewById(R.id.save);
         user_name = (EditText) myView.findViewById(R.id.user_name);
         bio = (EditText) myView.findViewById(R.id.bio);
         profile = (ImageView) myView.findViewById(R.id.profile);
@@ -78,7 +78,7 @@ public class ProfileFragment extends Fragment{
 
                     user_nameText = user_name.getText().toString();
 
-                    message.child();
+                    //message.child();
                 }
 
                 if (bio.getText().toString() != null) {

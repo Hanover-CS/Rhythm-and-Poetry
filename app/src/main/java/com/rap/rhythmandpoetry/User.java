@@ -24,9 +24,9 @@ public class User {
         this.bio = bio;
     }
 
-    public void setName(String name){
-        mDatabase.child("User").child(user).child("username").setValue(name);
-    }
+//    public void setName(String name){
+//        mDatabase.child("User").child(user).child("username").setValue(name);
+//    }
 
     public void setEmail(String email){
         this.email = email;
