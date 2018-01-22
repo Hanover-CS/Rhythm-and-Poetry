@@ -1,20 +1,37 @@
 package com.rap.rhythmandpoetry;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.facebook.*;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import com.rap.rhythmandpoetry.updateProfile;
+
+import static android.content.ContentValues.TAG;
 
 public class FacebookLogin extends Activity
 {
@@ -23,6 +40,16 @@ public class FacebookLogin extends Activity
     LoginButton login_button;
     String email,name,first_name,last_name;
     private TextView info;
+    private FirebaseAuth mAuth;
+    private static updateProfile userInfo = new updateProfile();
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -30,9 +57,7 @@ public class FacebookLogin extends Activity
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
-
-
+        mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.facebook_login);
         info = (TextView)findViewById(R.id.info);
@@ -48,9 +73,11 @@ public class FacebookLogin extends Activity
             public void onSuccess(LoginResult loginResult)
             {
                 login_button.setVisibility(View.GONE);
+                handleFacebookAccessToken(loginResult.getAccessToken());
 
                 GraphRequest graphRequest   =   GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback()
                 {
+
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response)
                     {
@@ -73,17 +100,18 @@ public class FacebookLogin extends Activity
                         {
                             e.printStackTrace();
                         }
-                    }
-                });
+                        }
+                    });
 
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,first_name,last_name,email");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,first_name,last_name,email");
+                    graphRequest.setParameters(parameters);
+                    graphRequest.executeAsync();
 
-                Intent i = new Intent(FacebookLogin.this, RapRoot.class);
-                startActivity(i);
+                    Intent i = new Intent(FacebookLogin.this, RapRoot.class);
+                    startActivity(i);
             }
+
 
             @Override
             public void onCancel()
@@ -97,6 +125,34 @@ public class FacebookLogin extends Activity
                 info.setText("Login attempt failed.");
             }
         });
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Iterator<String> myVeryOwnIterator = userInfo.userData.keySet().iterator();
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            User profile_info = new User(userInfo.getElementByIndex(userInfo.userData,0).toString(),
+                                    userInfo.getElementByIndex(userInfo.userData,1).toString(),
+                                    userInfo.getElementByIndex(userInfo.userData,2).toString());
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(FacebookLogin.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
     }
 
 
