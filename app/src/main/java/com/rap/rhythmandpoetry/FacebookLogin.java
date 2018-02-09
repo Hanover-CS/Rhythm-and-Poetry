@@ -141,9 +141,13 @@ public class FacebookLogin extends Activity
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User profile_info = new User(userInfo.getElementByIndex(userInfo.userData,0).toString(),
-                                    userInfo.getElementByIndex(userInfo.userData,1).toString(),
-                                    userInfo.getElementByIndex(userInfo.userData,2).toString());
+                            if(user != null){
+                                Intent signUp = new Intent(FacebookLogin.this, updateProfile.class);
+                                startActivity(signUp);
+                            }
+//                            User profile_info = new User(userInfo.getElementByIndex(userInfo.userData,0).toString(),
+//                                    userInfo.getElementByIndex(userInfo.userData,1).toString(),
+//                                    userInfo.getElementByIndex(userInfo.userData,2).toString());
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

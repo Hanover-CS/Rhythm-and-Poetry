@@ -36,12 +36,11 @@ public class ProfileFragment extends Fragment{
 
     View myView;
     View myView1;
-    TextView userName;
     LoginButton loginBtn;
     RoundImage roundedImage;
     static final String LOG_TAG = "BAD IMAGE";
     private DatabaseReference mDatabase;
-    private EditText user_name, bio;
+    private TextView user_name, bio;
     private Button save;
     private ImageView profile;
 
@@ -49,14 +48,12 @@ public class ProfileFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        //save = (Button) myView.findViewById(R.id.save);
-        user_name = (EditText) myView.findViewById(R.id.user_name);
-        bio = (EditText) myView.findViewById(R.id.bio);
+        user_name = (TextView) myView.findViewById(R.id.user_name);
+        bio = (TextView) myView.findViewById(R.id.bio);
         profile = (ImageView) myView.findViewById(R.id.profile);
         myView = inflater.inflate(R.layout.profile_layout, container, false);
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("User");
 
-        //user_name.setText(mDatabase.);
+        //  user_name.setText(mDatabase.);
         return myView;
         }}

@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.rap.rhythmandpoetry.User;
 
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +31,7 @@ public class updateProfile extends Activity {
     //private DatabaseReference mDatabase;
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user_info");
-    String key = mDatabase.push().getKey();
+
 
 
 
@@ -52,8 +56,19 @@ public class updateProfile extends Activity {
                 userData.put("User name",userName.toString());
                 userData.put("Bio",bio.toString());
                 userData.put("image", imageUrl.toString());
+                String key = mDatabase.push().getKey();
+                mDatabase.child(key).setValue(userData);
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                mDatabase.setValue(userData);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
                 Intent i = new Intent(updateProfile.this, RapRoot.class);
                 startActivity(i);
