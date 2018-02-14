@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -41,15 +42,10 @@ public class FacebookLogin extends Activity
     String email,name,first_name,last_name;
     private TextView info;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private static updateProfile userInfo = new updateProfile();
 
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -125,7 +121,41 @@ public class FacebookLogin extends Activity
                 info.setText("Login attempt failed.");
             }
         });
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if(user != null) {
+                    Log.d("", "onAuthStateChanged: signed in:" + user.getUid());
+
+                    Intent intent = new Intent(FacebookLogin.this, updateProfile.class);
+                    String email = user.getEmail();
+                    String name = user.getDisplayName();
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Log.d("TG", "SIGNED OUT");
+                }
+            }
+        };
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        if(mAuthListener != null){
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
 
     private void handleFacebookAccessToken(AccessToken token) {
 

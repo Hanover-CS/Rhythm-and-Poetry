@@ -3,10 +3,12 @@ package com.rap.rhythmandpoetry;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by rysha on 12/8/2017.
  */
@@ -30,8 +34,9 @@ public class updateProfile extends Activity {
     private static int GET_FROM_GALLERY = 1;
     //private DatabaseReference mDatabase;
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("user_info");
 
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference("User");
 
 
 
@@ -44,6 +49,7 @@ public class updateProfile extends Activity {
         final EditText userName = (EditText) findViewById(R.id.user_name);
         final EditText bio = (EditText) findViewById(R.id.bio);
         final EditText imageUrl = (EditText) findViewById(R.id.imageUrl);
+        final String key = myRef.push().getKey();
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -53,15 +59,18 @@ public class updateProfile extends Activity {
     });
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                userData.put("User name",userName.toString());
-                userData.put("Bio",bio.toString());
-                userData.put("image", imageUrl.toString());
-                String key = mDatabase.push().getKey();
-                mDatabase.child(key).setValue(userData);
-                mDatabase.addValueEventListener(new ValueEventListener() {
+                final User user_info = new User(userName.getText().toString(), imageUrl.getText().toString(),bio.getText().toString());
+                userData.put("User name",user_info.getUsername());
+                userData.put("Bio",user_info.getBio());
+                userData.put("image", user_info.getEmail());
+
+
+                myRef.child(key).setValue(userData);
+                //myRef.child(key).updateChildren(user_info);
+                myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
+                        
                     }
 
                     @Override

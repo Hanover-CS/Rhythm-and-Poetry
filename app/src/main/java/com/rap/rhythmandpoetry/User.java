@@ -36,6 +36,23 @@ public class User {
         this.bio = bio;
     }
 
+    public String getBio(){
+        return this.bio;
+    }
+
+    public String getEmail(){
+        return this.email;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
+
+
+
+
+
+
     private void writeNewUser(String userId, String name, String email, String bio) {
         User user = new User(name, email, bio);
         mDatabase.child("users").child(userId).setValue(user);
