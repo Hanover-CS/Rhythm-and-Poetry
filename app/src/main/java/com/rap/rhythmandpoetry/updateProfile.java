@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +31,7 @@ import static android.content.ContentValues.TAG;
 
 public class updateProfile extends Activity {
 
+
     private EditText userName, bio, imageurl;
     private Button updateButton, submitButton;
     private static int GET_FROM_GALLERY = 1;
@@ -38,6 +41,7 @@ public class updateProfile extends Activity {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myRef = mDatabase.getReference("User");
 
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
 
     @Override
@@ -49,7 +53,8 @@ public class updateProfile extends Activity {
         final EditText userName = (EditText) findViewById(R.id.user_name);
         final EditText bio = (EditText) findViewById(R.id.bio);
         final EditText imageUrl = (EditText) findViewById(R.id.imageUrl);
-        final String key = myRef.push().getKey();
+        final String key = currentFirebaseUser.getUid().toString();
+
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +65,7 @@ public class updateProfile extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final User user_info = new User(userName.getText().toString(), imageUrl.getText().toString(),bio.getText().toString());
+
                 userData.put("User name",user_info.getUsername());
                 userData.put("Bio",user_info.getBio());
                 userData.put("image", user_info.getEmail());
@@ -70,7 +76,7 @@ public class updateProfile extends Activity {
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        
+
                     }
 
                     @Override
