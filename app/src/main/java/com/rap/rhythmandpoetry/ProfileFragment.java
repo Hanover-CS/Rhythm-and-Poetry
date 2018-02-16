@@ -23,6 +23,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.internal.ImageRequest;
 import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,10 +41,14 @@ public class ProfileFragment extends Fragment{
     LoginButton loginBtn;
     RoundImage roundedImage;
     static final String LOG_TAG = "BAD IMAGE";
-    private DatabaseReference mDatabase;
     private TextView user_name, bio;
     private Button save;
     private ImageView profile;
+
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference("User");
+
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
     @Nullable
     @Override
@@ -52,8 +58,7 @@ public class ProfileFragment extends Fragment{
         bio = (TextView) myView.findViewById(R.id.bio);
         profile = (ImageView) myView.findViewById(R.id.profile);
         myView = inflater.inflate(R.layout.profile_layout, container, false);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User");
-
+        final String key = currentFirebaseUser.getUid().toString();
         //  user_name.setText(mDatabase.);
         return myView;
         }}

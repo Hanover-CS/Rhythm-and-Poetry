@@ -13,10 +13,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.LinkedHashMap;
+
 
 public class PoemFragment extends Fragment{
 
     View myView;
+    LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
+
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference("User");
+
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    final String key = currentFirebaseUser.getUid().toString();
 
     @Nullable
     @Override
@@ -28,6 +45,22 @@ public class PoemFragment extends Fragment{
         public void onClick(View v) {
             EditText messageView = (EditText)myView.findViewById(R.id.editText2);
             String messageText = messageView.getText().toString();
+
+            userData.put("Poem",messageText);
+            myRef.child(key).child("User Poems").push().setValue(userData);
+
+            myRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, messageText);

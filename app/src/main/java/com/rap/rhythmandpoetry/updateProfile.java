@@ -1,13 +1,17 @@
 package com.rap.rhythmandpoetry;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageInstaller;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.facebook.*;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static android.content.ContentValues.TAG;
+import static com.rap.rhythmandpoetry.ProfileFragment.LOG_TAG;
 
 /**
  * Created by rysha on 12/8/2017.
@@ -42,6 +47,8 @@ public class updateProfile extends Activity {
     DatabaseReference myRef = mDatabase.getReference("User");
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
+
 
 
     @Override
@@ -64,11 +71,30 @@ public class updateProfile extends Activity {
     });
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if(userName.getText().toString().isEmpty()){
+                    userName.requestFocus();
+                    userName.setError("FIELD CANNOT BE EMPTY");
+                    return;
+                }
+
+                if(bio.getText().toString().isEmpty()){
+                    bio.requestFocus();
+                    bio.setError("FIELD CANNOT BE EMPTY");
+                    return;
+                }
+
+                if(imageUrl.getText().toString().isEmpty()){
+                    imageUrl.requestFocus();
+                    imageUrl.setError("FIELD CANNOT BE EMPTY");
+                    return;
+                }
+
                 final User user_info = new User(userName.getText().toString(), imageUrl.getText().toString(),bio.getText().toString());
 
                 userData.put("User name",user_info.getUsername());
                 userData.put("Bio",user_info.getBio());
                 userData.put("image", user_info.getEmail());
+
 
 
                 myRef.child(key).setValue(userData);
