@@ -20,8 +20,7 @@
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:hint="User" />
+        android:layout_marginTop="24dp" />
 
     <TextView
         android:id="@+id/bio"
@@ -32,6 +31,7 @@
         android:text="TextView" />
 
     <ListView
+        android:id="@+id/poems"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_alignLeft="@+id/bio"

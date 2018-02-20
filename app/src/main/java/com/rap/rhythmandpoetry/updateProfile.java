@@ -2,8 +2,10 @@ package com.rap.rhythmandpoetry;
 
 import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageInstaller;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,11 +15,15 @@ import android.widget.Toast;
 
 import com.facebook.*;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.rap.rhythmandpoetry.User;
 
 import com.google.firebase.database.DatabaseReference;
@@ -36,10 +42,13 @@ import static com.rap.rhythmandpoetry.ProfileFragment.LOG_TAG;
 
 public class updateProfile extends Activity {
 
+    StorageReference storage;
+    ProgressDialog progress;
 
     private EditText userName, bio, imageurl;
     private Button updateButton, submitButton;
     private static int GET_FROM_GALLERY = 1;
+    final int REQUEST_CODE=1;
     //private DatabaseReference mDatabase;
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
 
@@ -55,6 +64,9 @@ public class updateProfile extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_update_profile);
+        storage= FirebaseStorage.getInstance().getReference();
+
+        progress = new ProgressDialog(this);
         Button updateButton = (Button) findViewById(R.id.update);
         Button submitButton = (Button) findViewById(R.id.submit);
         final EditText userName = (EditText) findViewById(R.id.user_name);
@@ -66,7 +78,14 @@ public class updateProfile extends Activity {
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+                Intent intent=new Intent();
+
+                intent.setAction(Intent.ACTION_PICK);
+
+                intent.setType("image/*");
+
+                startActivityForResult(intent,REQUEST_CODE);
+                //startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
             }
     });
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -120,4 +139,26 @@ public class updateProfile extends Activity {
     public Object getElementByIndex(LinkedHashMap map, int index){
         return map.get( (map.keySet().toArray())[ index ] );
     }
-}
+
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==REQUEST_CODE&&resultCode==RESULT_OK)
+
+        {
+
+            progress.setMessage("uploading");
+            progress.show();
+            Uri uri=data.getData();
+            StorageReference path=storage.child("photos").child("simple_image");
+            path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    progress.dismiss();
+                    Toast.makeText(getApplicationContext(),"Sucessfully uploaded",Toast.LENGTH_LONG).show();
+                }
+            });
+}};}

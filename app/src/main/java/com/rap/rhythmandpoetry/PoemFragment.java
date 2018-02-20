@@ -45,9 +45,10 @@ public class PoemFragment extends Fragment{
         public void onClick(View v) {
             EditText messageView = (EditText)myView.findViewById(R.id.editText2);
             String messageText = messageView.getText().toString();
-
+            EditText titleView = (EditText)myView.findViewById(R.id.title);
+            String titleText = titleView.getText().toString();
             userData.put("Poem",messageText);
-            myRef.child(key).child("User Poems").push().setValue(userData);
+            myRef.child(key).child("User Poems").child(titleText).setValue(userData);
 
             myRef.addValueEventListener(new ValueEventListener() {
                 @Override
