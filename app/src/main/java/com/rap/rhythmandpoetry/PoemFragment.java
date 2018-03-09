@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,36 +41,52 @@ public class PoemFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.poem_layout, container, false);
         Button Button = (Button) myView.findViewById(R.id.button);
+        Button savePhone = (Button) myView.findViewById(R.id.phone);
 
-    Button.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-            EditText messageView = (EditText)myView.findViewById(R.id.editText2);
-            String messageText = messageView.getText().toString();
-            EditText titleView = (EditText)myView.findViewById(R.id.title);
-            String titleText = titleView.getText().toString();
-            userData.put("Poem",messageText);
-            myRef.child(key).child("User Poems").child(titleText).setValue(userData);
+        Button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+                String messageText = messageView.getText().toString();
+                EditText titleView = (EditText)myView.findViewById(R.id.title);
+                String titleText = titleView.getText().toString();
 
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                userData.put("Title",titleText);
+                userData.put("Poem",messageText);
 
-                }
+                String key2 = myRef.child(key).child("User Poems").push().getKey();
+                myRef.child(key).child("User Poems").child(key2).setValue(userData);
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    }
 
-                }
-            });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, messageText);
-            String chooserTitle = getString(R.string.chooser);
-            Intent chosenIntent = Intent.createChooser(intent, chooserTitle);
-            startActivity(chosenIntent);
-        }
-    });
+                    }
+                });
+
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, new ProfileFragment())
+                        .commit();
+    //
+            }
+        });
+
+        savePhone.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+                String messageText = messageView.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, messageText);
+                String chooserTitle = getString(R.string.chooser);
+                Intent chosenIntent = Intent.createChooser(intent, chooserTitle);
+                startActivity(chosenIntent);
+
+            }});
         return myView;
 }
 }

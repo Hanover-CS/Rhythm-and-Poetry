@@ -30,6 +30,8 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rap.rhythmandpoetry.updateProfile;
 
 import static android.content.ContentValues.TAG;
@@ -41,9 +43,15 @@ public class FacebookLogin extends Activity
     LoginButton login_button;
     String email,name,first_name,last_name;
     private TextView info;
+    
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static updateProfile userInfo = new updateProfile();
+
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference("User");
+
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
 
 
@@ -129,7 +137,7 @@ public class FacebookLogin extends Activity
                 if(user != null) {
                     Log.d("", "onAuthStateChanged: signed in:" + user.getUid());
 
-                    Intent intent = new Intent(FacebookLogin.this, updateProfile.class);
+                    Intent intent = new Intent(FacebookLogin.this, RapRoot.class);
                     String email = user.getEmail();
                     String name = user.getDisplayName();
                     startActivity(intent);
@@ -188,6 +196,11 @@ public class FacebookLogin extends Activity
                     }
                 });
     }
+
+//    private void UserCheck(DatabaseReference data){
+//        data.
+//    }
+
 
 
     @Override

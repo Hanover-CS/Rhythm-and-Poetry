@@ -59,15 +59,15 @@ public class ProfileFragment extends Fragment{
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     final String key = currentFirebaseUser.getUid().toString();
-    final DatabaseReference myRef = mDatabase.getReference("User").child(key).child("User Poems");
 
+    final DatabaseReference myRef= mDatabase.getReference("User").child(key).child("User Poems");
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.profile_layout, container, false);
-        TextView user_name = (TextView) myView.findViewById(R.id.user_name);
-        TextView bio = (TextView) myView.findViewById(R.id.bio);
+        final TextView user_name = (TextView) myView.findViewById(R.id.user_name);
+        final TextView bio = (TextView) myView.findViewById(R.id.bio);
         ImageView profile = (ImageView) myView.findViewById(R.id.profile);
 
         ListView PoemsList = (ListView)myView.findViewById(R.id.poems);
@@ -80,6 +80,10 @@ public class ProfileFragment extends Fragment{
                 //String value = dataSnapshot.getValue(String.class);
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String Poem = ds.getValue(String.class);
+//                    String UserName = ds.child("User name").getValue(String.class);
+//                    user_name.setText(UserName);
+//                    String BIO = ds.child("Bio").getValue(String.class);
+//                    bio.setText(BIO);
                     userPoems.add(Poem);
                     arrayAdapter.notifyDataSetChanged();
                 }

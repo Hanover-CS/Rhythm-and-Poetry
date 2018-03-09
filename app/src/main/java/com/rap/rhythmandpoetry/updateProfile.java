@@ -153,7 +153,7 @@ public class updateProfile extends Activity {
             progress.setMessage("uploading");
             progress.show();
             Uri uri=data.getData();
-            StorageReference path=storage.child("photos").child("simple_image");
+            StorageReference path=storage.child("Profile photos").child("simple_image");
             path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
