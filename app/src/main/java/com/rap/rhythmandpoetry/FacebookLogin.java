@@ -43,7 +43,7 @@ public class FacebookLogin extends Activity
     LoginButton login_button;
     String email,name,first_name,last_name;
     private TextView info;
-    
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private static updateProfile userInfo = new updateProfile();

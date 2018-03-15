@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 
 import org.json.JSONObject;
@@ -60,13 +61,14 @@ public class ProfileFragment extends Fragment{
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     final String key = currentFirebaseUser.getUid().toString();
 
-    final DatabaseReference myRef= mDatabase.getReference("User").child(key).child("User Poems");
+    DatabaseReference myRef = mDatabase.getReference("User").child(key).child("User Poems");
+    DatabaseReference myRef2 = mDatabase.getReference("User");
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.profile_layout, container, false);
-        final TextView user_name = (TextView) myView.findViewById(R.id.user_name);
+        final TextView userName = (TextView) myView.findViewById(R.id.user_name);
         final TextView bio = (TextView) myView.findViewById(R.id.bio);
         ImageView profile = (ImageView) myView.findViewById(R.id.profile);
 
@@ -74,24 +76,37 @@ public class ProfileFragment extends Fragment{
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, userPoems);
         PoemsList.setAdapter(arrayAdapter);
 
-        myRef.addChildEventListener(new ChildEventListener(){
+        myRef2.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                //String value = dataSnapshot.getValue(String.class);
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String Poem = ds.getValue(String.class);
-//                    String UserName = ds.child("User name").getValue(String.class);
-//                    user_name.setText(UserName);
-//                    String BIO = ds.child("Bio").getValue(String.class);
-//                    bio.setText(BIO);
-                    userPoems.add(Poem);
-                    arrayAdapter.notifyDataSetChanged();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
+                    String username = (String) (messageSnapshot.child("User name").getValue());
+                    String BIO = (String) (messageSnapshot.child("Bio").getValue());
+                    userName.setText(username);
+                    bio.setText(BIO);
                 }
+
+
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildKey) {
+                Map<String, Object> Poem = (Map<String, Object>) dataSnapshot.getValue();
+
+                String poem_name = Poem.get("Title").toString();
+                //userName.setText(poem_name);
+
+                userPoems.add(poem_name);
+                arrayAdapter.notifyDataSetChanged();
+
+                //System.out.println("Title: " + newPost.get("title"));
             }
 
             @Override
@@ -105,11 +120,26 @@ public class ProfileFragment extends Fragment{
             }
 
             @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
 
+            //                //String value = dataSnapshot.getValue(String.class);
+//                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+//                    String Poem = ds.child(key).child("User Poems").getValue(String.class);
+//                    String UserName = ds.child(key).child("User name").getValue(String.class);
+//                    userName.setText(UserName);
+//                    String BIO = ds.child(key).child("Bio").getValue(String.class);
+//                    bio.setText(BIO);
+//                    userPoems.add(Poem);
+//                    arrayAdapter.notifyDataSetChanged();
+//                }
+        });
 
         return myView;
         }}
