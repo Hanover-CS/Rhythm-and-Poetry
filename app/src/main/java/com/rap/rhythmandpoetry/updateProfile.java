@@ -52,10 +52,11 @@ public class updateProfile extends Activity {
     //private DatabaseReference mDatabase;
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
 
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = mDatabase.getReference("User");
-
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    final String key = currentFirebaseUser.getUid().toString();
+
+    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = mDatabase.getReference("User").child(key);
 
 
 
@@ -72,7 +73,7 @@ public class updateProfile extends Activity {
         final EditText userName = (EditText) findViewById(R.id.user_name);
         final EditText bio = (EditText) findViewById(R.id.bio);
         final EditText imageUrl = (EditText) findViewById(R.id.imageUrl);
-        final String key = currentFirebaseUser.getUid().toString();
+
 
         //mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -116,12 +117,11 @@ public class updateProfile extends Activity {
 
 
 
-                myRef.child(key).setValue(userData);
+                myRef.setValue(userData);
                 //myRef.child(key).updateChildren(user_info);
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
 
                     }
 

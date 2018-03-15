@@ -31,7 +31,7 @@ public class PoemFragment extends Fragment{
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
 
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = mDatabase.getReference("User");
+    DatabaseReference myRef = mDatabase.getReference("User Poems");
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     final String key = currentFirebaseUser.getUid().toString();
@@ -53,8 +53,8 @@ public class PoemFragment extends Fragment{
                 userData.put("Title",titleText);
                 userData.put("Poem",messageText);
 
-                String key2 = myRef.child(key).child("User Poems").push().getKey();
-                myRef.child(key).child("User Poems").child(key2).setValue(userData);
+                //String key2 = myRef.child(key + "Poems").push().getKey();
+                myRef.child(key + "Poems").push().setValue(userData);
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

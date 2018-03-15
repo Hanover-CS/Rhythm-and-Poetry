@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment{
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     final String key = currentFirebaseUser.getUid().toString();
 
-    DatabaseReference myRef = mDatabase.getReference("User").child(key).child("User Poems");
+    DatabaseReference myRef = mDatabase.getReference("User Poems").child(key + " Poems");
     DatabaseReference myRef2 = mDatabase.getReference("User");
 
     @Nullable
@@ -85,8 +85,6 @@ public class ProfileFragment extends Fragment{
                     userName.setText(username);
                     bio.setText(BIO);
                 }
-
-
             }
 
             @Override
