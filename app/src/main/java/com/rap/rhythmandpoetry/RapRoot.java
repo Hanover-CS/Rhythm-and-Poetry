@@ -136,6 +136,12 @@ public class RapRoot extends AppCompatActivity
                             , new FifthFragment())
                     .commit();
         }
+        else if (id == R.id.nav_others_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame
+                            , new others())
+                    .commit();
+        }
 
 
 

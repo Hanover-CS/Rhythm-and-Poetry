@@ -11,8 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
-
+import com.squareup.picasso.Picasso;
 import com.facebook.*;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -45,7 +46,7 @@ public class updateProfile extends Activity {
     StorageReference storage;
     ProgressDialog progress;
 
-    private EditText userName, bio, imageurl;
+    private EditText userName, bio;
     private Button updateButton, submitButton;
     private static int GET_FROM_GALLERY = 1;
     final int REQUEST_CODE=1;
@@ -58,7 +59,7 @@ public class updateProfile extends Activity {
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myRef = mDatabase.getReference("User").child(key);
 
-
+    private ImageView profile;
 
 
     @Override
@@ -66,13 +67,12 @@ public class updateProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_update_profile);
         storage= FirebaseStorage.getInstance().getReference();
-
+        profile = (ImageView) findViewById(R.id.previewPic);
         progress = new ProgressDialog(this);
         Button updateButton = (Button) findViewById(R.id.update);
         Button submitButton = (Button) findViewById(R.id.submit);
-        final EditText userName = (EditText) findViewById(R.id.user_name);
-        final EditText bio = (EditText) findViewById(R.id.bio);
-        final EditText imageUrl = (EditText) findViewById(R.id.imageUrl);
+        userName = (EditText) findViewById(R.id.user_name);
+        bio = (EditText) findViewById(R.id.bio);
 
 
         //mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -103,17 +103,9 @@ public class updateProfile extends Activity {
                     return;
                 }
 
-                if(imageUrl.getText().toString().isEmpty()){
-                    imageUrl.requestFocus();
-                    imageUrl.setError("FIELD CANNOT BE EMPTY");
-                    return;
-                }
-
-                final User user_info = new User(userName.getText().toString(), imageUrl.getText().toString(),bio.getText().toString());
-
-                userData.put("User name",user_info.getUsername());
-                userData.put("Bio",user_info.getBio());
-                userData.put("image", user_info.getEmail());
+                userData.put("User name",userName.getText().toString());
+                userData.put("Bio",bio.getText().toString());
+                userData.put("image", userName.getText().toString());
 
 
 
@@ -147,17 +139,19 @@ public class updateProfile extends Activity {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==REQUEST_CODE&&resultCode==RESULT_OK)
+        if(requestCode==REQUEST_CODE && resultCode == RESULT_OK)
 
         {
-
             progress.setMessage("uploading");
             progress.show();
             Uri uri=data.getData();
-            StorageReference path=storage.child("Profile photos").child("simple_image");
+            StorageReference path = storage.child("Profile photos").child(uri.getLastPathSegment());
             path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    Picasso.with(updateProfile.this).load(downloadUri).into(profile);
+
                     progress.dismiss();
                     Toast.makeText(getApplicationContext(),"Sucessfully uploaded",Toast.LENGTH_LONG).show();
                 }

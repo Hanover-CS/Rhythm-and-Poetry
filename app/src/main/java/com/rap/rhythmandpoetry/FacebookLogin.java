@@ -46,7 +46,7 @@ public class FacebookLogin extends Activity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static updateProfile userInfo = new updateProfile();
+    //private static updateProfile userInfo = new updateProfile();
 
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myRef = mDatabase.getReference("User");
@@ -174,7 +174,7 @@ public class FacebookLogin extends Activity
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Iterator<String> myVeryOwnIterator = userInfo.userData.keySet().iterator();
+                        //Iterator<String> myVeryOwnIterator = userInfo.userData.keySet().iterator();
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");

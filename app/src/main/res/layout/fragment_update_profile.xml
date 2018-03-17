@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -50,28 +51,30 @@
         android:layout_height="35dp"
         android:layout_alignEnd="@+id/bio"
         android:layout_alignRight="@+id/bio"
-        android:layout_below="@+id/bio"
-        android:layout_marginTop="37dp"
+        android:layout_alignTop="@+id/previewPic"
         android:text="upload" />
 
-    <EditText
-        android:id="@+id/imageUrl"
-        android:layout_width="240dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bio"
-        android:layout_alignStart="@+id/bio"
-        android:layout_alignTop="@+id/update"
-        android:ems="10"
-        android:hint="click update to update image"
-        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageUrl"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
+        android:layout_alignEnd="@+id/user_name"
+        android:layout_alignRight="@+id/user_name"
+        android:layout_below="@+id/previewPic"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="16dp"
         android:text="Submit" />
+
+    <ImageView
+        android:id="@+id/previewPic"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_alignLeft="@+id/bio"
+        android:layout_alignStart="@+id/bio"
+        android:layout_below="@+id/bio"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/com_facebook_button_icon_blue" />
 
 </RelativeLayout>

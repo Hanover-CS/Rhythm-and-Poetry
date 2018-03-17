@@ -27,6 +27,12 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/Historian" />
 
+        <item
+            android:id="@+id/nav_others_layout"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Others" />
+
+
     </group>
         </menu>
     </item>

@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment{
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     final String key = currentFirebaseUser.getUid().toString();
 
-    DatabaseReference myRef = mDatabase.getReference("User Poems").child(key + " Poems");
+    DatabaseReference myRef = mDatabase.getReference("User Poems").child(key + "Poems");
     DatabaseReference myRef2 = mDatabase.getReference("User");
 
     @Nullable
@@ -110,7 +110,7 @@ public class ProfileFragment extends Fragment{
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-            }
+            } 
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
@@ -127,16 +127,6 @@ public class ProfileFragment extends Fragment{
 
             }
 
-            //                //String value = dataSnapshot.getValue(String.class);
-//                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    String Poem = ds.child(key).child("User Poems").getValue(String.class);
-//                    String UserName = ds.child(key).child("User name").getValue(String.class);
-//                    userName.setText(UserName);
-//                    String BIO = ds.child(key).child("Bio").getValue(String.class);
-//                    bio.setText(BIO);
-//                    userPoems.add(Poem);
-//                    arrayAdapter.notifyDataSetChanged();
-//                }
         });
 
         return myView;
