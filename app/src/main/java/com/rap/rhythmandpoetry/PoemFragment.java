@@ -54,7 +54,7 @@ public class PoemFragment extends Fragment{
                 userData.put("Poem",messageText);
 
                 //String key2 = myRef.child(key + "Poems").push().getKey();
-                myRef.child(key + "Poems").push().setValue(userData);
+                myRef.child(key).push().setValue(userData);
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

@@ -46,7 +46,7 @@ public class updateProfile extends Activity {
     StorageReference storage;
     ProgressDialog progress;
 
-    private EditText userName, bio;
+    private EditText userName, bio, file_name;
     private Button updateButton, submitButton;
     private static int GET_FROM_GALLERY = 1;
     final int REQUEST_CODE=1;
@@ -73,19 +73,24 @@ public class updateProfile extends Activity {
         Button submitButton = (Button) findViewById(R.id.submit);
         userName = (EditText) findViewById(R.id.user_name);
         bio = (EditText) findViewById(R.id.bio);
+        file_name = (EditText) findViewById(R.id.fileName);
+        storage = FirebaseStorage.getInstance().getReference();
 
 
         //mDatabase = FirebaseDatabase.getInstance().getReference();
-
         updateButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent=new Intent();
+                if(!file_name.getText().toString().isEmpty()) {
+                    intent.setAction(Intent.ACTION_PICK);
 
-                intent.setAction(Intent.ACTION_PICK);
+                    intent.setType("image/*");
 
-                intent.setType("image/*");
-
-                startActivityForResult(intent,REQUEST_CODE);
+                    startActivityForResult(intent, REQUEST_CODE);
+                }
+                else if(file_name.getText().toString().isEmpty()){
+                    file_name.setError("FIELD CANNOT BE EMPTY");
+                }
                 //startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
             }
     });
@@ -103,9 +108,15 @@ public class updateProfile extends Activity {
                     return;
                 }
 
+                if(file_name.getText().toString().isEmpty()){
+                    file_name.requestFocus();
+                    file_name.setError("FIELD CANNOT BE EMPTY");
+                    return;
+                }
+
                 userData.put("User name",userName.getText().toString());
                 userData.put("Bio",bio.getText().toString());
-                userData.put("image", userName.getText().toString());
+                userData.put("file name", file_name.getText().toString());
 
 
 
@@ -145,7 +156,7 @@ public class updateProfile extends Activity {
             progress.setMessage("uploading");
             progress.show();
             Uri uri=data.getData();
-            StorageReference path = storage.child("Profile photos").child(uri.getLastPathSegment());
+            StorageReference path = storage.child("Profile photos").child(file_name.getText().toString());
             path.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
