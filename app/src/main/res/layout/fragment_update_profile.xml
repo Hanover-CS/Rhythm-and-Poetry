@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,81 +6,90 @@
     tools:context="com.rap.rhythmandpoetry.updateProfile">
 
 
-    <EditText
-        android:id="@+id/user_name"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/bio"
-        android:layout_alignStart="@+id/bio"
-        android:layout_below="@+id/Title"
-        android:layout_marginTop="36dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="Enter Desired User Name"
-        android:inputType="textPersonName" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="900dp">
 
-    <EditText
-        android:id="@+id/bio"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_below="@+id/user_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:ems="10"
-        android:fadeScrollbars="true"
-        android:hint="Tell us about You!! "
-        android:inputType="textPersonName"
-        android:textAlignment="center" />
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/bio"
+            android:layout_alignStart="@+id/bio"
+            android:layout_below="@+id/Title"
+            android:layout_marginTop="36dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Enter Desired User Name"
+            android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/Title"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignLeft="@+id/user_name"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/user_name"
-        android:layout_marginTop="14dp"
-        android:fontFamily="cursive"
-        android:text="Update my profile:"
-        android:textColor="#ce3232"
-        android:textSize="40dp" />
+        <EditText
+            android:id="@+id/bio"
+            android:layout_width="350dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/user_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="34dp"
+            android:ems="10"
+            android:fadeScrollbars="true"
+            android:hint="Tell us about You!! "
+            android:inputType="textMultiLine"
+            android:lines="10"
+            android:singleLine="true"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/update"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_alignEnd="@+id/bio"
-        android:layout_alignRight="@+id/bio"
-        android:layout_below="@+id/bio"
-        android:layout_marginTop="13dp"
-        android:text="upload" />
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/user_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/user_name"
+            android:layout_marginTop="14dp"
+            android:fontFamily="cursive"
+            android:text="Update my profile:"
+            android:textColor="#ce3232"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/update2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignEnd="@+id/bio"
+            android:layout_alignRight="@+id/bio"
+            android:layout_below="@+id/bio"
+            android:layout_marginTop="13dp"
+            android:text="upload" />
 
 
-    <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/previewPic"
-        android:layout_alignLeft="@+id/update"
-        android:layout_alignStart="@+id/update"
-        android:text="Submit" />
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/previewPic"
+            android:layout_alignEnd="@+id/update2"
+            android:layout_alignRight="@+id/update2"
+            android:text="Save Changes" />
 
-    <ImageView
-        android:id="@+id/previewPic"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
-        android:layout_alignLeft="@+id/fileName"
-        android:layout_alignStart="@+id/fileName"
-        android:layout_below="@+id/fileName"
-        android:layout_marginTop="20dp"/>
+        <ImageView
+            android:id="@+id/previewPic"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:layout_alignLeft="@+id/fileName"
+            android:layout_alignStart="@+id/fileName"
+            android:layout_below="@+id/fileName"
+            android:layout_marginTop="20dp" />
 
-    <EditText
-        android:id="@+id/fileName"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_alignLeft="@+id/bio"
-        android:layout_alignStart="@+id/bio"
-        android:layout_alignTop="@+id/update"
-        android:hint="File Name" />
+        <EditText
+            android:id="@+id/fileName"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/bio"
+            android:layout_alignStart="@+id/bio"
+            android:layout_alignTop="@+id/update2"
+            android:hint="File Name" />
 
-</RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

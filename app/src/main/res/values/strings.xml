@@ -89,5 +89,6 @@
     <string name="list_image">List downloaded images</string>
     <string name="no_image">No image on storage folder</string>
     <string name="url_error">Your input url is short</string>
+    <string name="title_activity_update_cover">update_cover</string>
 
 </resources>

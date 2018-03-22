@@ -1,0 +1,64 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rap.rhythmandpoetry.updateProfile">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="900dp">
+
+        <TextView
+            android:id="@+id/Title"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="23dp"
+            android:fontFamily="cursive"
+            android:text="Update my Cover:"
+            android:textColor="#ce3232"
+            android:textSize="40dp" />
+
+        <Button
+            android:id="@+id/update2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_below="@+id/fileName2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            android:text="upload" />
+
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/previewPic2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="46dp"
+            android:text="Save Changes" />
+
+        <ImageView
+            android:id="@+id/previewPic2"
+            android:layout_width="200dp"
+            android:layout_height="130dp"
+            android:layout_below="@+id/update2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp" />
+
+
+        <EditText
+            android:id="@+id/fileName2"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/Title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:hint=" Cover Photo File Name" />
+
+    </RelativeLayout>
+
+</ScrollView>

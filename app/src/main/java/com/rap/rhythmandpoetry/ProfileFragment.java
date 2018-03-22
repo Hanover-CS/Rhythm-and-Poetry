@@ -1,6 +1,7 @@
 package com.rap.rhythmandpoetry;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -64,16 +66,19 @@ public class ProfileFragment extends Fragment{
     RoundImage roundedImage;
     static final String LOG_TAG = "BAD IMAGE";
     private ImageView profile;
+    private ImageButton profile2;
     private ArrayList<String> userPoems = new ArrayList<>();
     String data,key2;
-
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     final String key = currentFirebaseUser.getUid().toString();
 
+
+
     DatabaseReference myRef = mDatabase.getReference("User Poems").child(key);
     DatabaseReference myRef2 = mDatabase.getReference("User");
+    DatabaseReference myRef3 = mDatabase.getReference("Cover Photos");
 
 
     // Create a reference with an initial file path and name
@@ -86,10 +91,27 @@ public class ProfileFragment extends Fragment{
         final TextView userName = (TextView) myView.findViewById(R.id.user_name);
         final TextView bio = (TextView) myView.findViewById(R.id.bio);
         final ImageView profileView = (ImageView) myView.findViewById(R.id.profile);
+        final ImageView profileView2 = (ImageView) myView.findViewById(R.id.cover);
+        profile2 = (ImageButton) myView.findViewById(R.id.cover);
         storage = FirebaseStorage.getInstance().getReference();
         ListView PoemsList = (ListView)myView.findViewById(R.id.poems);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, userPoems);
         PoemsList.setAdapter(arrayAdapter);
+
+        profileView.bringToFront();
+        userName.bringToFront();
+
+
+        profile2.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), update_cover.class);
+                startActivity(i);
+                ((Activity) getActivity()).overridePendingTransition(0,0);
+            }
+
+            });
+
+
 
         myRef2.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,17 +120,49 @@ public class ProfileFragment extends Fragment{
                     String username = (String) (messageSnapshot.child("User name").getValue());
                     String BIO = (String) (messageSnapshot.child("Bio").getValue());
                     String file_identifier = (String) (messageSnapshot.child("file name").getValue());
+                    String file_identifier2 = (String) (messageSnapshot.child("cover file name").getValue());
                     userName.setText(username);
                     bio.setText(BIO);
                     StorageReference pathReference = storage.child("Profile photos/"+file_identifier);
+                    StorageReference pathReference2 = storage.child("Cover photos/"+file_identifier2);
                     // Load the image using Glide
                     Glide.with(ProfileFragment.this)
                             .using(new FirebaseImageLoader())
                             .load(pathReference)
                             .into(profileView);
 
+                    // Load the image using Glide
+                    Glide.with(ProfileFragment.this)
+                            .using(new FirebaseImageLoader())
+                            .load(pathReference2)
+                            .into(profileView2);
 
                 }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        myRef3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
+                    String file_identifier2 = (String) (messageSnapshot.child("cover file name").getValue());
+                    StorageReference pathReference2 = storage.child("Cover photos/"+file_identifier2);
+
+                    // Load the image using Glide
+                    Glide.with(ProfileFragment.this)
+                            .using(new FirebaseImageLoader())
+                            .load(pathReference2)
+                            .into(profile2);
+
+                }
+
 
             }
 
@@ -148,9 +202,7 @@ public class ProfileFragment extends Fragment{
 
 
 
-        Bitmap image=((BitmapDrawable)profileView.getDrawable()).getBitmap();
-        roundedImage = new RoundImage(image);
-        profileView.setImageDrawable(roundedImage);
+
 
         return myView;
         }}
