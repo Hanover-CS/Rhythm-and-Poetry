@@ -28,6 +28,7 @@ import java.util.LinkedHashMap;
 
 public class PoemFragment extends Fragment{
 
+
     View myView;
     LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
 
@@ -38,29 +39,35 @@ public class PoemFragment extends Fragment{
     final String key = currentFirebaseUser.getUid().toString();
     DatabaseReference myRef2 = mDatabase.getReference("User Poems").child(key);
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         myView = inflater.inflate(R.layout.poem_layout, container, false);
-        Button Button = (Button) myView.findViewById(R.id.button);
+        Button save = (Button) myView.findViewById(R.id.button);
         Button savePhone = (Button) myView.findViewById(R.id.phone);
         final EditText messageView = (EditText)myView.findViewById(R.id.editText2);
         final EditText titleView = (EditText)myView.findViewById(R.id.title);
         final String value = getArguments().getString("Poem name");
 
-
-
-        Button.setOnClickListener(new View.OnClickListener() {
+        /*
+        When Save button is clicked all data is stored into firebase database under appropriate sections
+        * */
+        save.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                // get the poem the user has typed
                 String messageText = messageView.getText().toString();
 
+                // get the title of the poem user chose
                 String titleText = titleView.getText().toString();
 
+                // put these values into Hash map to be stored in firebase database
                 userData.put("Title",titleText);
                 userData.put("Poem",messageText);
 
-                //String key2 = myRef.child(key + "Poems").push().getKey();
+                // listen for changes to data at the location where Poem info is stored
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,18 +79,19 @@ public class PoemFragment extends Fragment{
 
                     }
                 });
+
+                // set the value at location to the values passed through User data ( all info contained in the poem Fragment)
                 myRef.child(key).child(titleText).setValue(userData);
-
-
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new ProfileFragment())
                         .commit();
-    //
             }
         });
 
-
+        /*
+        Get the Poem by searching database for the "value" passed from profile fragment containing the title of the poem
+        * */
         myRef2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,6 +108,9 @@ public class PoemFragment extends Fragment{
             }
         });
 
+        /*
+        Handles the option of saving the poem locally on the user's device by clicking save to phone
+        * */
         savePhone.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText messageView = (EditText)myView.findViewById(R.id.editText2);

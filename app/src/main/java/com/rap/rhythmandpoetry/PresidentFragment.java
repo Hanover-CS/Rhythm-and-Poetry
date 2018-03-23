@@ -32,15 +32,16 @@ public class PresidentFragment extends Fragment{
         roundedImage = new RoundImage(bm);
         shaun.setImageDrawable(roundedImage);
 
-    Button.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-            Intent mail = new Intent(Intent.ACTION_SEND);
-            mail.putExtra(Intent.EXTRA_EMAIL,new String[] {"Willisr19@hanover.edu"});
-            mail.setType("message/rfc822");
-            startActivity(Intent.createChooser(mail, "Email Shaun Using:"));
+        Button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent mail = new Intent(Intent.ACTION_SEND);
+                mail.putExtra(Intent.EXTRA_EMAIL,new String[] {"Willisr19@hanover.edu"});
+                mail.setType("message/rfc822");
+                startActivity(Intent.createChooser(mail, "Email Shaun Using:"));
 
-        }
-    });
+            }
+        });
+
         shaun.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -49,8 +50,8 @@ public class PresidentFragment extends Fragment{
                 intent.setData(Uri.parse("https://www.facebook.com/sean.m.willis2"));
                 startActivity(intent);
             }
-        })
-    ;
+        });
+
         return myView;
 }
 }

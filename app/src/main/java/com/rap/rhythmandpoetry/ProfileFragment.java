@@ -227,15 +227,8 @@ public class ProfileFragment extends Fragment{
 
                 // Commit the transaction
                 transaction.commit();
-
-
             }
             });
 
-
-
-
-
-
-                return myView;
+        return myView;
         }}

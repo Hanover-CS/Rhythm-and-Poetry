@@ -131,7 +131,7 @@ public class RoundImage extends Drawable {
 
     /*
     Parameters:
-    Bitmap 
+    Bitmap
     Returns the bitmap version of image
     * */
     public Bitmap getBitmap() {
