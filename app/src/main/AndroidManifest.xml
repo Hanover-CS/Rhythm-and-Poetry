@@ -66,6 +66,10 @@
         <activity
             android:name=".update_cover"
             android:label="@string/title_activity_update_cover"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PoemView"
+            android:label="@string/title_activity_poem_view"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

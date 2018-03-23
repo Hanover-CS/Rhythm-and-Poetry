@@ -49,7 +49,7 @@ public class PoemFragment extends Fragment{
         Button savePhone = (Button) myView.findViewById(R.id.phone);
         final EditText messageView = (EditText)myView.findViewById(R.id.editText2);
         final EditText titleView = (EditText)myView.findViewById(R.id.title);
-        final String value = getArguments().getString("Poem name");
+
 
         /*
         When Save button is clicked all data is stored into firebase database under appropriate sections
@@ -96,6 +96,7 @@ public class PoemFragment extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
+                    final String value = getArguments().getString("Poem name");
 
                     String poem = (String) (messageSnapshot.child(value).child("Poem").getValue());
                     messageView.setText(poem);

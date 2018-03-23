@@ -90,5 +90,6 @@
     <string name="no_image">No image on storage folder</string>
     <string name="url_error">Your input url is short</string>
     <string name="title_activity_update_cover">update_cover</string>
+    <string name="title_activity_poem_view">PoemView</string>
 
 </resources>
