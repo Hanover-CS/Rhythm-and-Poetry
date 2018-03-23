@@ -49,10 +49,6 @@ public class User {
     }
 
 
-
-
-
-
     private void writeNewUser(String userId, String name, String email, String bio) {
         User user = new User(name, email, bio);
         mDatabase.child("users").child(userId).setValue(user);

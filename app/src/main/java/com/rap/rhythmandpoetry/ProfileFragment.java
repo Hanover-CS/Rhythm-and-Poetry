@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -96,7 +97,7 @@ public class ProfileFragment extends Fragment{
         final ImageView profileView2 = (ImageView) myView.findViewById(R.id.cover);
         profile2 = (ImageButton) myView.findViewById(R.id.cover);
         storage = FirebaseStorage.getInstance().getReference();
-        ListView PoemsList = (ListView)myView.findViewById(R.id.poems);
+        final ListView PoemsList = (ListView)myView.findViewById(R.id.poems);
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, userPoems);
         PoemsList.setAdapter(arrayAdapter);
 
@@ -202,15 +203,26 @@ public class ProfileFragment extends Fragment{
 
         });
 
+        FloatingActionButton fab = (FloatingActionButton) myView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), updateProfile.class);
+                startActivity(i);
+            }
+        });
+
         PoemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Create new fragment and transaction
                 Fragment newFragment = new PoemFragment();
+                Bundle args = new Bundle();
+                args.putString("Poem name", PoemsList.getItemAtPosition(position).toString());
+                newFragment.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.content_frame, newFragment);
 
                 // Commit the transaction

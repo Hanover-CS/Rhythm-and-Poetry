@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -33,8 +34,9 @@ public class PoemFragment extends Fragment{
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myRef = mDatabase.getReference("User Poems");
 
-    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+    FirebaseUser currentFirebaseUser =          FirebaseAuth.getInstance().getCurrentUser() ;
     final String key = currentFirebaseUser.getUid().toString();
+    DatabaseReference myRef2 = mDatabase.getReference("User Poems").child(key);
 
     @Nullable
     @Override
@@ -42,19 +44,23 @@ public class PoemFragment extends Fragment{
         myView = inflater.inflate(R.layout.poem_layout, container, false);
         Button Button = (Button) myView.findViewById(R.id.button);
         Button savePhone = (Button) myView.findViewById(R.id.phone);
+        final EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+        final EditText titleView = (EditText)myView.findViewById(R.id.title);
+        final String value = getArguments().getString("Poem name");
+
+
 
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+
                 String messageText = messageView.getText().toString();
-                EditText titleView = (EditText)myView.findViewById(R.id.title);
+
                 String titleText = titleView.getText().toString();
 
                 userData.put("Title",titleText);
                 userData.put("Poem",messageText);
 
                 //String key2 = myRef.child(key + "Poems").push().getKey();
-                myRef.child(key).push().setValue(userData);
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -66,12 +72,31 @@ public class PoemFragment extends Fragment{
 
                     }
                 });
+                myRef.child(key).child(titleText).setValue(userData);
+
 
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new ProfileFragment())
                         .commit();
     //
+            }
+        });
+
+
+        myRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
+
+                    String poem = (String) (messageSnapshot.child(value).child("Poem").getValue());
+                    messageView.setText(poem);
+                    titleView.setText(value);
+                }}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
