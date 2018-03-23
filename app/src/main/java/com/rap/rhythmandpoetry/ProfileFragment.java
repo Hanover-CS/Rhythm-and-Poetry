@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -200,9 +202,28 @@ public class ProfileFragment extends Fragment{
 
         });
 
+        PoemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Create new fragment and transaction
+                Fragment newFragment = new PoemFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.id.content_frame, newFragment);
+
+                // Commit the transaction
+                transaction.commit();
+
+
+            }
+            });
 
 
 
 
-        return myView;
+
+
+                return myView;
         }}
