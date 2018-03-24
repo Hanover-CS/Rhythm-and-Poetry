@@ -6,19 +6,19 @@
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignLeft="@+id/poem"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignStart="@+id/poem"
         android:text="SAVE" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/poem"
         android:layout_width="230dp"
         android:layout_height="350dp"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/save"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:ems="10"
@@ -32,9 +32,9 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignLeft="@+id/poem"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignStart="@+id/poem"
         android:layout_marginTop="23dp"
         android:ems="10"
         android:hint="Poem Name"
@@ -47,7 +47,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:layout_toEndOf="@+id/button"
-        android:layout_toRightOf="@+id/button"
+        android:layout_toEndOf="@+id/save"
+        android:layout_toRightOf="@+id/save"
         android:text="Save to Phone" />
 </RelativeLayout>

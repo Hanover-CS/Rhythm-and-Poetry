@@ -101,7 +101,7 @@ public class RapRoot extends AppCompatActivity
         else if (id == R.id.nav_fourth_layout) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame
-                            , new FourthFragment())
+                            , new PRFragment())
                     .commit();
         } else if (id == R.id.nav_rhyme) {
             fragmentManager.beginTransaction()

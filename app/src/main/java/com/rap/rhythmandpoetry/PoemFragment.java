@@ -2,18 +2,14 @@ package com.rap.rhythmandpoetry;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +31,7 @@ public class PoemFragment extends Fragment{
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myRef = mDatabase.getReference("User Poems");
 
-    FirebaseUser currentFirebaseUser =          FirebaseAuth.getInstance().getCurrentUser() ;
+    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     final String key = currentFirebaseUser.getUid().toString();
     DatabaseReference myRef2 = mDatabase.getReference("User Poems").child(key);
 
@@ -45,9 +41,9 @@ public class PoemFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.poem_layout, container, false);
-        Button save = (Button) myView.findViewById(R.id.button);
+        Button save = (Button) myView.findViewById(R.id.save);
         Button savePhone = (Button) myView.findViewById(R.id.phone);
-        final EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+        final EditText messageView = (EditText)myView.findViewById(R.id.poem);
         final EditText titleView = (EditText)myView.findViewById(R.id.title);
 
 
@@ -89,32 +85,13 @@ public class PoemFragment extends Fragment{
             }
         });
 
-        /*
-        Get the Poem by searching database for the "value" passed from profile fragment containing the title of the poem
-        * */
-        myRef2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
-                    final String value = getArguments().getString("Poem name");
-
-                    String poem = (String) (messageSnapshot.child(value).child("Poem").getValue());
-                    messageView.setText(poem);
-                    titleView.setText(value);
-                }}
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         /*
         Handles the option of saving the poem locally on the user's device by clicking save to phone
         * */
         savePhone.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                EditText messageView = (EditText)myView.findViewById(R.id.editText2);
+                EditText messageView = (EditText)myView.findViewById(R.id.poem);
                 String messageText = messageView.getText().toString();
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");

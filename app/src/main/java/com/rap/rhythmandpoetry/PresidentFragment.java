@@ -1,6 +1,7 @@
 package com.rap.rhythmandpoetry;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,6 +22,21 @@ public class PresidentFragment extends Fragment{
     View myView;
     RoundImage roundedImage;
 
+    public interface onSomeEventListener {
+        public void someEvent(String s);
+    }
+
+    onSomeEventListener someEventListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            someEventListener = (onSomeEventListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

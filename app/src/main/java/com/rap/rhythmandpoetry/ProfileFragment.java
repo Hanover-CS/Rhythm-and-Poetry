@@ -55,6 +55,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,13 +66,10 @@ public class ProfileFragment extends Fragment{
 
     View myView;
     StorageReference storage;
-    LoginButton loginBtn;
-    RoundImage roundedImage;
     static final String LOG_TAG = "BAD IMAGE";
-    private ImageView profile;
     private ImageButton profile2;
     private ArrayList<String> userPoems = new ArrayList<>();
-    String data,key2;
+    LinkedHashMap<String, String> userData = new LinkedHashMap<String, String>();
 
     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
     FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
@@ -82,6 +80,7 @@ public class ProfileFragment extends Fragment{
     DatabaseReference myRef = mDatabase.getReference("User Poems").child(key);
     DatabaseReference myRef2 = mDatabase.getReference("User");
     DatabaseReference myRef3 = mDatabase.getReference("Cover Photos");
+    DatabaseReference myRef4 = mDatabase.getReference("poem_name");
 
 
     // Create a reference with an initial file path and name
@@ -186,13 +185,13 @@ public class ProfileFragment extends Fragment{
 
                     String poem_name = (String) (messageSnapshot.child("Title").getValue());
 
-                    //userName.setText(poem_name);
+                    userPoems.remove(poem_name);
+                    arrayAdapter.notifyDataSetChanged();
                     userPoems.add(poem_name);
                     arrayAdapter.notifyDataSetChanged();
 
 
-
-                //System.out.println("Title: " + newPost.get("title"));
+                    //System.out.println("Title: " + newPost.get("title"));
 
             }}
 
@@ -215,20 +214,25 @@ public class ProfileFragment extends Fragment{
         PoemsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                userData.put("Title",PoemsList.getItemAtPosition(position).toString());
+                myRef4.child(key).setValue(userData);
+                Intent movePoem = new Intent(getActivity(), PoemView.class);
+                startActivity(movePoem);
                 // Create new fragment and transaction
-                Fragment newFragment = new PoemFragment();
-                Bundle args = new Bundle();
-                args.putString("Poem name", PoemsList.getItemAtPosition(position).toString());
-                newFragment.setArguments(args);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                Fragment newFragment = new Fragment();
+//                Bundle args = new Bundle();
+//                args.putString("Poem name", PoemsList.getItemAtPosition(position).toString());
+//                newFragment.setArguments(args);
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
                 // Replace whatever is in the fragment_container view with this fragment,
-                transaction.replace(R.id.content_frame, newFragment);
-
-                // Commit the transaction
-                transaction.commit();
+//                transaction.replace(R.id.content_frame, newFragment);
+//
+//                // Commit the transaction
+//                transaction.commit();
             }
             });
+
 
         return myView;
         }}
