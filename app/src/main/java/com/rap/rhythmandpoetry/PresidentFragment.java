@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 public class PresidentFragment extends Fragment{
@@ -41,7 +40,7 @@ public class PresidentFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.first_layout, container, false);
+        myView = inflater.inflate(R.layout.President, container, false);
         Button Button = (Button) myView.findViewById(R.id.president_button);
         ImageView shaun = (ImageView) myView.findViewById(R.id.shaun_pic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.shaun);
