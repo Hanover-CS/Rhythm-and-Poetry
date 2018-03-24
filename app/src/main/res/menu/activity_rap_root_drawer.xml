@@ -21,6 +21,7 @@
             android:id="@+id/nav_fourth_layout"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/PublicRelations" />
+
         <item
             android:id="@+id/nav_others_layout"
             android:icon="@drawable/ic_menu_manage"

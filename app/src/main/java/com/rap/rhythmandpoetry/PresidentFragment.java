@@ -21,26 +21,12 @@ public class PresidentFragment extends Fragment{
     View myView;
     RoundImage roundedImage;
 
-    public interface onSomeEventListener {
-        public void someEvent(String s);
-    }
 
-    onSomeEventListener someEventListener;
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            someEventListener = (onSomeEventListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement onSomeEventListener");
-        }
-    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.President, container, false);
+        myView = inflater.inflate(R.layout.president, container, false);
         Button Button = (Button) myView.findViewById(R.id.president_button);
         ImageView shaun = (ImageView) myView.findViewById(R.id.shaun_pic);
         Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.shaun);
