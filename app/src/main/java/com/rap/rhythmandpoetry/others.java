@@ -69,24 +69,6 @@ public class others extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot messageSnapshot : dataSnapshot.getChildren()){
                     String usernames = (String) (messageSnapshot.child("User name").getValue());
-                    String BIO = (String) (messageSnapshot.child("Bio").getValue());
-
-                    TextView tv_title = new TextView(getContext());
-                    tv_title.setLayoutParams(new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT
-                    ));
-                    tv_title.setTextAppearance(getContext(), R.style.TextAppearance_AppCompat_Title);
-                    tv_title.setText(usernames);
-
-                    TextView tv_caption = new TextView(getContext());
-                    tv_caption.setLayoutParams(new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT
-                    ));
-                    tv_caption.setText(BIO);
-
-                    cardInner.addView(tv_title);
-                    cardInner.addView(tv_caption);
-
                     userNames.add(usernames);
                     arrayAdapter.notifyDataSetChanged();
                 }

@@ -21,7 +21,6 @@ public class PresidentFragment extends Fragment{
     View myView;
     RoundImage roundedImage;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

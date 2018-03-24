@@ -78,8 +78,6 @@ public class PoemView extends Activity {
             }
         });
 
-
-
         /*
         When Save button is clicked all data is stored into firebase database under appropriate sections
         * */

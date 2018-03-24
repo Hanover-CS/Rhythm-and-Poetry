@@ -1,20 +1,15 @@
 package com.rap.rhythmandpoetry;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.FaceDetector;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +25,6 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.rap.rhythmandpoetry.updateProfile;
 
 import static android.content.ContentValues.TAG;
 
@@ -46,13 +38,6 @@ public class FacebookLogin extends Activity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    //private static updateProfile userInfo = new updateProfile();
-
-    FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = mDatabase.getReference("User");
-
-    FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-
 
 
     @Override
@@ -183,9 +168,7 @@ public class FacebookLogin extends Activity
                                 Intent signUp = new Intent(FacebookLogin.this, updateProfile.class);
                                 startActivity(signUp);
                             }
-//                            User profile_info = new User(userInfo.getElementByIndex(userInfo.userData,0).toString(),
-//                                    userInfo.getElementByIndex(userInfo.userData,1).toString(),
-//                                    userInfo.getElementByIndex(userInfo.userData,2).toString());
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -196,12 +179,6 @@ public class FacebookLogin extends Activity
                     }
                 });
     }
-
-//    private void UserCheck(DatabaseReference data){
-//        data.
-//    }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
