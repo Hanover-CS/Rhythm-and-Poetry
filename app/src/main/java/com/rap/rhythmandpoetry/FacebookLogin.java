@@ -6,10 +6,12 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +46,12 @@ public class FacebookLogin extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        // initializing the facebook SDK
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
+
 
         setContentView(R.layout.facebook_login);
         info = (TextView)findViewById(R.id.info);
@@ -55,6 +60,19 @@ public class FacebookLogin extends Activity
         tvfull_name         = (TextView) findViewById(R.id.full_name);
         tvEmail             = (TextView) findViewById(R.id.email);
         login_button        = (LoginButton) findViewById(R.id.login_button);
+        Button rap = (Button) findViewById(R.id.website);
+
+
+
+        rap.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://willisr19.wixsite.com/mysite-2"));
+                startActivity(intent);
+            }
+        });
 
         login_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>()
         {
@@ -97,9 +115,12 @@ public class FacebookLogin extends Activity
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
 
+                    Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
+
                     Intent i = new Intent(FacebookLogin.this, RapRoot.class);
                     startActivity(i);
             }
+
 
 
             @Override
@@ -148,6 +169,10 @@ public class FacebookLogin extends Activity
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
+
+
+
+
 
 
     private void handleFacebookAccessToken(AccessToken token) {

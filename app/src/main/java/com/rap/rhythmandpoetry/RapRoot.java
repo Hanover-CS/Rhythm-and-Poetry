@@ -133,7 +133,13 @@ public class RapRoot extends AppCompatActivity
                     .replace(R.id.content_frame
                             , new PRFragment())
                     .commit();
-        } else if (id == R.id.nav_rhyme) {
+        }else if (id == R.id.nav_historian_layout) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame
+                            , new HistorianFragment())
+                    .commit();
+        }
+        else if (id == R.id.nav_rhyme) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content_frame
                             , new PoemFragment())

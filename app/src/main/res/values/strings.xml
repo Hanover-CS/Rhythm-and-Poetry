@@ -59,24 +59,22 @@
     <string name="PublicRelations">Public Relations</string>
     <string name="PublicRelations_colon"> Public Relations of R.A.P</string>
     <string name="PublicRelations_description">\n &#8226;
-                	info \n &#8226;
-                	info \n &#8226;
-                    info \n &#8226;
-                    info
+                	Social media Representation\n &#8226;
+                	Advertising\n &#8226;
+                    Networking\n &#8226;
     </string>
-    <string name="PublicRelations_email">rutledgep20@hanover.edu</string>
+    <string name="PublicRelations_email">littlet18@hanover.edu</string>
 
     // Historian
 
     <string name="Historian">Historian</string>
     <string name="Historian_colon"> Historian of R.A.P</string>
     <string name="Historian_description">\n &#8226;
-                	info \n &#8226;
-                	info \n &#8226;
-                    info \n &#8226;
-                    info
+                	Photo documenting events \n &#8226;
+                	Meeting Minutes \n &#8226;
+                    Historical info on organization (past events attendance, etc) \n &#8226;
     </string>
-    <string name="Historian_email">macumberj19@hanover.edu</string>
+    <string name="Historian_email">nuckolss18@hanover.edu</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

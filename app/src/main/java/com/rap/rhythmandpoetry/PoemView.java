@@ -40,6 +40,8 @@ public class PoemView extends Activity {
         Button saveButton = (Button)findViewById(R.id.save);
         final EditText messageView = (EditText)findViewById(R.id.poem);
         final EditText titleView = (EditText)findViewById(R.id.title);
+        Button savePhone = (Button) findViewById(R.id.phone);
+
 
         mDatabase = FirebaseDatabase.getInstance();
         currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
@@ -119,6 +121,21 @@ public class PoemView extends Activity {
 
             }
         });
+        /*
+        Handles the option of saving the poem locally on the user's device by clicking save to phone
+        * */
+        savePhone.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                EditText messageView = (EditText)findViewById(R.id.poem);
+                String messageText = messageView.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, messageText);
+                String chooserTitle = getString(R.string.chooser);
+                Intent chosenIntent = Intent.createChooser(intent, chooserTitle);
+                startActivity(chosenIntent);
+
+            }});
 
 
 

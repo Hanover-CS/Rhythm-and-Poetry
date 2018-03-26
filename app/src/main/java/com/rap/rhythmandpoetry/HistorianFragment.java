@@ -15,7 +15,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
-public class PRFragment extends Fragment{
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class HistorianFragment extends Fragment {
 
     View myView;
     RoundImage roundedImage;
@@ -23,32 +26,32 @@ public class PRFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        myView = inflater.inflate(R.layout.pr, container, false);
-        Button Button = (Button) myView.findViewById(R.id.pr_button);
-        ImageView tynisha_image = (ImageView) myView.findViewById(R.id.tynisha);
-        Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.tynisha);
+        myView = inflater.inflate(R.layout.fragment_historian, container, false);
+        Button Button = (Button) myView.findViewById(R.id.historian_button);
+        ImageView sierra = (ImageView) myView.findViewById(R.id.sierra_pic);
+        Bitmap bm = BitmapFactory.decodeResource(getResources(),R.drawable.sierra);
         roundedImage = new RoundImage(bm);
-        tynisha_image.setImageDrawable(roundedImage);
+        sierra.setImageDrawable(roundedImage);
 
         Button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent mail = new Intent(Intent.ACTION_SEND);
-                mail.putExtra(Intent.EXTRA_EMAIL, new String[]{"littlet18@hanover.edu"});
+                mail.putExtra(Intent.EXTRA_EMAIL,new String[] {"nuckolss18@hanover.edu"});
                 mail.setType("message/rfc822");
-                startActivity(Intent.createChooser(mail, "Email Tynisha Using:"));
+                startActivity(Intent.createChooser(mail, "Email Sierra Using:"));
             }
         });
-        tynisha_image.setOnClickListener(new View.OnClickListener() {
+        sierra.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://www.facebook.com/tynisha.little"));
+                intent.setData(Uri.parse("https://www.facebook.com/sierra.nuckols"));
                 startActivity(intent);
             }
         })
         ;
         return myView;
     }
-}
 
+}
